@@ -6,4 +6,8 @@ Feature: This describes the core functionality of the SoapObject object
     When I create an instance of the SoapObject class
     Then I should have a connection
 
+  Scenario: Establishing communications with a local wsdl
+    Given I have a wsdl file residing locally
+    When I create an instance of the SoapObject class
+    Then I should have a connection
 
