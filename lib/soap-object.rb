@@ -3,7 +3,7 @@ require 'soap-object/version'
 require 'soap-object/class_methods'
 
 module SoapObject
-  attr_reader :wsdl, :client
+  attr_reader :wsdl
 
   def initialize
     @client = Savon.client(with_wsdl) if respond_to?(:with_wsdl)
@@ -13,4 +13,7 @@ module SoapObject
     cls.extend SoapObject::ClassMethods
   end
 
+  def connected?
+    @client.nil? == false
+  end
 end

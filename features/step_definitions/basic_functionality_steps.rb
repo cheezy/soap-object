@@ -14,5 +14,5 @@ When /^I create an instance of the SoapObject class$/ do
 end
 
 Then /^I should have a connection$/ do
-  @so.client.should_not be_nil
+  @so.should be_connected
 end
