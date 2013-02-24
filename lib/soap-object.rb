@@ -14,6 +14,6 @@ module SoapObject
   end
 
   def connected?
-    @client.nil? == false
+    not @client.nil?
   end
 end
