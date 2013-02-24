@@ -1,7 +1,5 @@
 require "soap-object/version"
 
-module Soap
-  module Object
-    # Your code goes here...
-  end
+module SoapObject
+
 end
