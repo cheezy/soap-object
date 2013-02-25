@@ -6,8 +6,8 @@ module SoapObject
   attr_reader :wsdl
 
   def initialize
-    @client = Savon.client(with_wsdl) if wsdl?
-    @client = Savon.client(with_endpoint.merge(with_namespace)) if endpoint?
+    @client = Savon.client(with_wsdl.merge(no_log)) if wsdl?
+    @client = Savon.client(with_endpoint.merge(with_namespace).merge(no_log)) if endpoint?
   end
 
   def self.included(cls)
@@ -41,5 +41,8 @@ module SoapObject
   def endpoint?
     respond_to? :with_endpoint and respond_to? :with_namespace
   end
-  
+
+  def no_log
+    {log: false}
+  end
 end
