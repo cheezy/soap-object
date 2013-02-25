@@ -46,3 +46,9 @@ end
 Then /^I should not be able to determine the operations$/ do
   @so.operations.should be_nil
 end
+
+Then /^I should be able to make a call and receive the correct results$/ do
+  response = @so.get_airport_information_by_airport_code airport_code: 'SFO'
+  doc = Nokogiri::XML(response)
+  doc.xpath('//Table/AirportCode').first.content.should == 'SFO'
+end

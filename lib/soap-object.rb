@@ -22,8 +22,18 @@ module SoapObject
     @client.operations if wsdl?
   end
 
+  def method_missing(*args)
+    method = args.shift
+    @response = @client.call(method, {message: args.first})
+    body_for(method)
+  end
+
   private
 
+  def body_for(method)
+    @response.body["#{method.to_s}_response".to_sym]["#{method.to_s}_result".to_sym]
+  end
+  
   def wsdl?
     respond_to? :with_wsdl
   end
