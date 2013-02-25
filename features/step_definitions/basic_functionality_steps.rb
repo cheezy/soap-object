@@ -27,3 +27,7 @@ end
 Then /^I should have a connection$/ do
   @so.should be_connected
 end
+
+Then /^I should be able to determine the operations$/ do
+  @so.operations.should include :get_airport_information_by_airport_code
+end

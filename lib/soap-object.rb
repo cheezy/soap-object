@@ -6,7 +6,7 @@ module SoapObject
   attr_reader :wsdl
 
   def initialize
-    @client = Savon.client(with_wsdl) if respond_to?(:with_wsdl)
+    @client = Savon.client(with_wsdl) if wsdl?
   end
 
   def self.included(cls)
@@ -16,4 +16,15 @@ module SoapObject
   def connected?
     not @client.nil?
   end
+
+  def operations
+    @client.operations if wsdl?
+  end
+
+  private
+
+  def wsdl?
+    respond_to? :with_wsdl
+  end
+  
 end
