@@ -4,21 +4,30 @@ class TestServiceWithWsdl
   include SoapObject
 
   wsdl 'http://blah.com'
+  proxy 'http://proxy.com:8080'
 end
 
 
 describe SoapObject do
   let(:client) { double('client') }
-  
+
   context "when creating new instances" do
+    before do 
+      Savon.should_receive(:client).and_return(client)
+    end
+  
     it "should initialize the client using the wsdl" do
-      Savon.should_receive(:client).with(wsdl: 'http://blah.com').and_return(client)
-      TestServiceWithWsdl.new
+      subject = TestServiceWithWsdl.new
+      subject.client_properties[:wsdl].should == 'http://blah.com'
     end
 
     it "should know when it is connected to service" do
-      Savon.should_receive(:client).with(wsdl: 'http://blah.com').and_return(client)
       TestServiceWithWsdl.new.should be_connected
+    end
+
+    it "should allow one to setup a proxy" do
+      subject = TestServiceWithWsdl.new
+      subject.client_properties[:proxy].should == 'http://proxy.com:8080'
     end
   end
 

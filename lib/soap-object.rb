@@ -2,11 +2,15 @@ require 'savon'
 require 'soap-object/version'
 require 'soap-object/class_methods'
 
+#
+# module to make it simpler to tests SOAP web services.  You define
+# the behavior by calling class methods to set the configuration.
+#
 module SoapObject
   attr_reader :wsdl
 
   def initialize
-    @client = Savon.client(wsdl_properties) if wsdl?
+    @client = Savon.client(client_properties)
   end
 
   def self.included(cls)
@@ -27,21 +31,23 @@ module SoapObject
     body_for(method)
   end
 
-  private
-
-  def body_for(method)
-    @response.body["#{method.to_s}_response".to_sym]["#{method.to_s}_result".to_sym]
-  end
-  
-  def wsdl?
-    respond_to? :with_wsdl
-  end
-
-  def wsdl_properties
-    with_wsdl.merge(no_log)    
+  def client_properties
+    properties = {}
+    [:with_wsdl,
+     :with_proxy,
+     :no_log].each do |sym|
+      properties = properties.merge(self.send sym) if self.respond_to? sym
+    end
+    properties
   end
 
   def no_log
     {log: false}
+  end
+
+  private
+
+  def body_for(method)
+    @response.body["#{method.to_s}_response".to_sym]["#{method.to_s}_result".to_sym]
   end
 end
