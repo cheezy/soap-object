@@ -7,7 +7,6 @@ module SoapObject
 
   def initialize
     @client = Savon.client(wsdl_properties) if wsdl?
-    @client = Savon.client(endpoint_properties) if endpoint?
   end
 
   def self.included(cls)
@@ -19,7 +18,7 @@ module SoapObject
   end
 
   def operations
-    @client.operations if wsdl?
+    @client.operations
   end
 
   def method_missing(*args)
@@ -40,14 +39,6 @@ module SoapObject
 
   def wsdl_properties
     with_wsdl.merge(no_log)    
-  end
-
-  def endpoint_properties
-    with_endpoint.merge(with_namespace).merge(no_log)
-  end
-
-  def endpoint?
-    respond_to? :with_endpoint and respond_to? :with_namespace
   end
 
   def no_log

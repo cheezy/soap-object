@@ -10,13 +10,6 @@ class TestServiceWithLocalWsdl
   wsdl "#{File.dirname(__FILE__)}/../wsdl/airport.asmx.wsdl"
 end
 
-class TestServiceWithoutWsdl
-  include SoapObject
-
-  endpoint "http://www.webservicex.net/airport.asmx"
-  namespace "http://www.webserviceX.NET"
-end
-
 
 
 Given /^I have the url for a remote wsdl$/ do
@@ -25,10 +18,6 @@ end
 
 Given /^I have a wsdl file residing locally$/ do
   @cls = TestServiceWithLocalWsdl
-end
-
-Given /^I have the endpoint and namespace$/ do
-  @cls = TestServiceWithoutWsdl
 end
 
 When /^I create an instance of the SoapObject class$/ do
@@ -41,10 +30,6 @@ end
 
 Then /^I should be able to determine the operations$/ do
   @so.operations.should include :get_airport_information_by_airport_code
-end
-
-Then /^I should not be able to determine the operations$/ do
-  @so.operations.should be_nil
 end
 
 Then /^I should be able to make a call and receive the correct results$/ do
