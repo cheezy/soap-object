@@ -35,6 +35,8 @@ module SoapObject
     properties = {}
     [:with_wsdl,
      :with_proxy,
+     :with_open_timeout,
+     :with_read_timeout,
      :no_log].each do |sym|
       properties = properties.merge(self.send sym) if self.respond_to? sym
     end
