@@ -25,6 +25,12 @@ module SoapObject
     @client.operations
   end
 
+  def no_log
+    {log: false}
+  end
+
+  private
+
   def method_missing(*args)
     method = args.shift
     @response = @client.call(method, {message: args.first})
@@ -42,12 +48,6 @@ module SoapObject
     end
     properties
   end
-
-  def no_log
-    {log: false}
-  end
-
-  private
 
   def body_for(method)
     @response.body["#{method.to_s}_response".to_sym]["#{method.to_s}_result".to_sym]

@@ -21,7 +21,7 @@ describe SoapObject do
     end
   
     it "should initialize the client using the wsdl" do
-      subject.client_properties[:wsdl].should == 'http://blah.com'
+      subject.send(:client_properties)[:wsdl].should == 'http://blah.com'
     end
 
     it "should know when it is connected to service" do
@@ -29,15 +29,15 @@ describe SoapObject do
     end
 
     it "should allow one to setup a proxy" do
-      subject.client_properties[:proxy].should == 'http://proxy.com:8080'
+      subject.send(:client_properties)[:proxy].should == 'http://proxy.com:8080'
     end
 
     it "should allow one to set an open timeout" do
-      subject.client_properties[:open_timeout].should == 10
+      subject.send(:client_properties)[:open_timeout].should == 10
     end
 
     it "should allow one to set a read timeout" do
-      subject.client_properties[:read_timeout].should == 20
+      subject.send(:client_properties)[:read_timeout].should == 20
     end
   end
 
