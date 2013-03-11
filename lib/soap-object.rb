@@ -51,10 +51,6 @@ module SoapObject
     @client.operations
   end
 
-  def no_log
-    {log: false}
-  end
-
   private
 
   def method_missing(*args)
@@ -73,7 +69,7 @@ module SoapObject
      :with_encoding,
      :with_basic_auth,
      :with_digest_auth,
-     :no_log].each do |sym|
+     :with_log_level].each do |sym|
       properties = properties.merge(self.send sym) if self.respond_to? sym
     end
     properties

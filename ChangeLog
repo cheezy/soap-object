@@ -1,9 +1,10 @@
-=== Version 0.2
+=== Version 0.2 / 2013-3-11
 * Enhancements
   * Added ability to add XML to the soap header
   * Added ability to set the encoding for the messages
   * Added ability to use basic authentication
   * Added ability to use digest authentication
+  * Added ability to set the log level
 
 === Version 0.1 / 2013-3-4
 Initial release

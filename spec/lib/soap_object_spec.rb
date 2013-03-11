@@ -11,6 +11,7 @@ class TestServiceWithWsdl
   encoding 'UTF-16'
   basic_auth 'steve', 'secret'
   digest_auth 'digest', 'auth'
+  log_level :error
 end
 
 
@@ -58,6 +59,10 @@ describe SoapObject do
 
     it "should allow one to use digest authentication" do
       subject.send(:client_properties)[:digest_auth].should == ['digest', 'auth']
+    end
+
+    it "should allow one to set the log level" do
+      subject.send(:client_properties)[:log_level].should == :error
     end
   end
 

@@ -96,5 +96,16 @@ module SoapObject
         {digest_auth: name_password}
       end
     end
+
+    #
+    # Set the log level used for logging
+    #
+    # [Symbol] valid values are :info, :debug, :warn, :error, and :fatal
+    #
+    def log_level(level)
+      define_method(:with_log_level) do
+        {log_level: level}
+      end
+    end
   end
 end

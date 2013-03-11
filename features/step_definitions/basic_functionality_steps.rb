@@ -2,6 +2,7 @@ class TestServiceWithWsdl
   include SoapObject
 
   wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
+  log_level :error
 
   def get_airport_name_for(airport_code)
     response = get_airport_information_by_airport_code airport_code: airport_code
