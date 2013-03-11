@@ -3,8 +3,22 @@ require 'soap-object/version'
 require 'soap-object/class_methods'
 
 #
-# module to make it simpler to tests SOAP web services.  You define
-# the behavior by calling class methods to set the configuration.
+# module to make it simpler to tests SOAP web services.  The goal is
+# to abstract all information about how your call and parse results
+# from the web service within the soap objects.
+#
+# @example
+# class AirportService
+#   include SoapObject
+#
+#   wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
+#
+#   def get_airport_name_for(airport_code)
+#     response = get_airport_information_by_airport_code airport_code: airport_code
+#     doc = Nokogiri::XML(response)
+#     doc.xpath('//Table/CityOrAirportName').first.content
+#   end
+# end
 #
 module SoapObject
   attr_reader :wsdl
