@@ -24,8 +24,7 @@ module SoapObject
     #
     def proxy(url)
       define_method(:with_proxy) do
-        @proxy ||= url
-        {proxy: @proxy}
+        {proxy: url}
       end
     end
 
@@ -37,8 +36,7 @@ module SoapObject
     #
     def open_timeout(timeout)
       define_method(:with_open_timeout) do
-        @open_timeout ||= timeout
-        {open_timeout: @open_timeout}
+        {open_timeout: timeout}
       end
     end
 
@@ -50,8 +48,7 @@ module SoapObject
     #
     def read_timeout(timeout)
       define_method(:with_read_timeout) do
-        @read_timeout ||= timeout
-        {read_timeout: @read_timeout}
+        {read_timeout: timeout}
       end
     end
 
@@ -63,8 +60,7 @@ module SoapObject
     #
     def soap_header(hsh)
       define_method(:with_soap_header) do
-        @soap_header ||= hsh
-        {soap_header: @soap_header}
+        {soap_header: hsh}
       end
     end
 
@@ -75,8 +71,7 @@ module SoapObject
     #
     def encoding(enc)
       define_method(:with_encoding) do
-        @encoding ||= enc
-        {encoding: @encoding}
+        {encoding: enc}
       end
     end
 
@@ -87,8 +82,18 @@ module SoapObject
     #
     def basic_auth(*name_password)
       define_method(:with_basic_auth) do
-        @basic_auth = name_password
         {basic_auth: name_password}
+      end
+    end
+
+    #
+    # Use digest authentiation for all requests
+    #
+    # @param [Array] username and password
+    #
+    def digest_auth(*name_password)
+      define_method(:with_digest_auth) do
+        {digest_auth: name_password}
       end
     end
   end

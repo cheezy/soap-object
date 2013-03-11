@@ -10,6 +10,7 @@ class TestServiceWithWsdl
   soap_header 'Token' => 'secret'
   encoding 'UTF-16'
   basic_auth 'steve', 'secret'
+  digest_auth 'digest', 'auth'
 end
 
 
@@ -53,6 +54,10 @@ describe SoapObject do
 
     it "should allow one to use basic authentication" do
       subject.send(:client_properties)[:basic_auth].should == ['steve', 'secret']
+    end
+
+    it "should allow one to use digest authentication" do
+      subject.send(:client_properties)[:digest_auth].should == ['digest', 'auth']
     end
   end
 
