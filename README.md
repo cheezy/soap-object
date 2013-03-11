@@ -4,19 +4,19 @@ Module to make it simpler to tests SOAP web services.  The goal is
 to abstract all information about how your call and parse results
 from the web service within the soap objects.
 
+````ruby
+class AirportService
+  include SoapObject
 
-    class AirportService
-      include SoapObject
+  wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
 
-      wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
-
-      def get_airport_name_for(airport_code)
-        response = get_airport_information_by_airport_code airport_code: airport_code
-        doc = Nokogiri::XML(response)
-        doc.xpath('//Table/CityOrAirportName').first.content
-      end
-    end
-
+  def get_airport_name_for(airport_code)
+    response = get_airport_information_by_airport_code airport_code: airport_code
+    doc = Nokogiri::XML(response)
+    doc.xpath('//Table/CityOrAirportName').first.content
+  end
+end
+````
 
 ## Installation
 
