@@ -2,6 +2,12 @@ class TestServiceWithWsdl
   include SoapObject
 
   wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
+
+  def get_airport_name_for(airport_code)
+    response = get_airport_information_by_airport_code airport_code: airport_code
+    doc = Nokogiri::XML(response)
+    doc.xpath('//Table/CityOrAirportName').first.content
+  end
 end
 
 class TestServiceWithLocalWsdl
@@ -33,7 +39,5 @@ Then /^I should be able to determine the operations$/ do
 end
 
 Then /^I should be able to make a call and receive the correct results$/ do
-  response = @so.get_airport_information_by_airport_code airport_code: 'SFO'
-  doc = Nokogiri::XML(response)
-  doc.xpath('//Table/AirportCode').first.content.should == 'SFO'
+  @so.get_airport_name_for('SFO').should == 'SAN FRANCISCO INTL'
 end
