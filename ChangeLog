@@ -1,2 +1,6 @@
+=== Version 0.2
+* Enhancements
+  * Added ability to add XML to the soap header
+
 === Version 0.1 / 2013-3-4
 Initial release

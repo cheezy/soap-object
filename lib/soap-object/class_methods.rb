@@ -54,5 +54,18 @@ module SoapObject
         {read_timeout: @read_timeout}
       end
     end
+
+    #
+    # Add custom XML to the soap header.
+    #
+    # @param [Hash] will be converted into xml and placed in the soap
+    # header
+    #
+    def soap_header(hsh)
+      define_method(:with_soap_header) do
+        @soap_header ||= hsh
+        {soap_header: @soap_header}
+      end
+    end
   end
 end
