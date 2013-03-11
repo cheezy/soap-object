@@ -9,6 +9,7 @@ class TestServiceWithWsdl
   read_timeout 20
   soap_header 'Token' => 'secret'
   encoding 'UTF-16'
+  basic_auth 'steve', 'secret'
 end
 
 
@@ -48,6 +49,10 @@ describe SoapObject do
 
     it "should allow one to set the encoding" do
       subject.send(:client_properties)[:encoding].should == 'UTF-16'
+    end
+
+    it "should allow one to use basic authentication" do
+      subject.send(:client_properties)[:basic_auth].should == ['steve', 'secret']
     end
   end
 

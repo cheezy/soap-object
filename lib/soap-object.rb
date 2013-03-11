@@ -20,6 +20,10 @@ require 'soap-object/class_methods'
 #   end
 # end
 #
+# There are many additional properties that can be set to configure
+# the service calls.  See the comments for SoapObject::ClassMethods to
+# view all of the options.
+#
 module SoapObject
   attr_reader :wsdl
 
@@ -31,10 +35,18 @@ module SoapObject
     cls.extend SoapObject::ClassMethods
   end
 
+  #
+  # Returns true if the service has established communication with the
+  # remote server.
+  #
   def connected?
     not @client.nil?
   end
 
+  #
+  # Returns an array of operations that can be called on the remote
+  # service.
+  #
   def operations
     @client.operations
   end
@@ -59,6 +71,7 @@ module SoapObject
      :with_read_timeout,
      :with_soap_header,
      :with_encoding,
+     :with_basic_auth,
      :no_log].each do |sym|
       properties = properties.merge(self.send sym) if self.respond_to? sym
     end

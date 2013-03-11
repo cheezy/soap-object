@@ -2,6 +2,7 @@
 * Enhancements
   * Added ability to add XML to the soap header
   * Added ability to set the encoding for the messages
+  * Added ability to use basic authentication
 
 === Version 0.1 / 2013-3-4
 Initial release

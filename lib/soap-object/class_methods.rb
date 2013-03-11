@@ -79,5 +79,17 @@ module SoapObject
         {encoding: @encoding}
       end
     end
+
+    #
+    # Use basic authentication for all requests
+    #
+    # @param [Array] username and password
+    #
+    def basic_auth(*name_password)
+      define_method(:with_basic_auth) do
+        @basic_auth = name_password
+        {basic_auth: name_password}
+      end
+    end
   end
 end
