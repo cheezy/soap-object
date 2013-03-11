@@ -58,6 +58,7 @@ module SoapObject
      :with_open_timeout,
      :with_read_timeout,
      :with_soap_header,
+     :with_encoding,
      :no_log].each do |sym|
       properties = properties.merge(self.send sym) if self.respond_to? sym
     end

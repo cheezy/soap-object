@@ -67,5 +67,17 @@ module SoapObject
         {soap_header: @soap_header}
       end
     end
+
+    #
+    # Set the encoding for the message
+    #
+    # @param [String] the encoding to use
+    #
+    def encoding(enc)
+      define_method(:with_encoding) do
+        @encoding ||= enc
+        {encoding: @encoding}
+      end
+    end
   end
 end
