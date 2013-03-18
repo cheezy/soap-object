@@ -1,6 +1,7 @@
 require 'savon'
 require 'soap-object/version'
 require 'soap-object/class_methods'
+require 'soap-object/factory'
 
 #
 # module to make it simpler to tests SOAP web services.  The goal is
@@ -25,7 +26,7 @@ require 'soap-object/class_methods'
 # view all of the options.
 #
 module SoapObject
-  attr_reader :wsdl
+  attr_reader :wsdl, :response
 
   def initialize
     @client = Savon.client(client_properties)
