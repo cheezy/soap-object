@@ -56,7 +56,7 @@ module SoapObject
 
   def method_missing(*args)
     method = args.shift
-    @response = @client.call(method, {message: args.first})
+    @response = @client.call(method, {message: args.shift})
     body_for(method)
   end
 
