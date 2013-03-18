@@ -1,3 +1,7 @@
+=== Version 0.3
+* Enhancements
+  * Added SoapObject::Factory to assist in creating new service objects
+
 === Version 0.2 / 2013-3-11
 * Enhancements
   * Added ability to add XML to the soap header

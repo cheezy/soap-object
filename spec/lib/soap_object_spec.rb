@@ -14,6 +14,10 @@ class TestServiceWithWsdl
   log_level :error
 end
 
+class TestWorld
+  include SoapObject::Factory
+end
+
 
 describe SoapObject do
   let(:client) { double('client') }
@@ -63,6 +67,28 @@ describe SoapObject do
 
     it "should allow one to set the log level" do
       subject.send(:client_properties)[:log_level].should == :error
+    end
+  end
+
+  context "when using the factory to create to service" do
+    let(:world) { TestWorld.new }
+
+    it "should create a valid service object" do
+      service = world.using(TestServiceWithWsdl)
+      service.should be_instance_of TestServiceWithWsdl
+    end
+
+    it "should create a valid service and invoke a block" do
+      world.using(TestServiceWithWsdl) do |service|
+        service.should be_instance_of TestServiceWithWsdl
+      end
+    end
+
+    it "should create the service the first time we use it" do
+      obj = TestServiceWithWsdl.new
+      TestServiceWithWsdl.should_receive(:new).once.and_return(obj)
+      world.using(TestServiceWithWsdl)
+      world.using(TestServiceWithWsdl)
     end
   end
 
