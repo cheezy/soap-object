@@ -52,6 +52,9 @@ module SoapObject
     @client.operations
   end
 
+  #
+  # Return a Nokogiri::XML::Document containing the raw body.
+  #
   def body_xml
     Nokogiri::XML(body)
   end
