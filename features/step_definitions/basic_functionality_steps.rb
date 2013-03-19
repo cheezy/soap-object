@@ -42,3 +42,7 @@ end
 Then /^I should be able to make a call and receive the correct results$/ do
   @so.get_airport_name_for('SFO').should == 'SAN FRANCISCO INTL'
 end
+
+Then /^the results body should contain "(.*?)"$/ do |body|
+  @so.body.should include body
+end

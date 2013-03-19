@@ -26,7 +26,7 @@ require 'soap-object/factory'
 # view all of the options.
 #
 module SoapObject
-  attr_reader :wsdl, :response
+  attr_reader :wsdl, :response, :body
 
   def initialize
     @client = Savon.client(client_properties)
@@ -57,7 +57,8 @@ module SoapObject
   def method_missing(*args)
     method = args.shift
     @response = @client.call(method, {message: args.shift})
-    body_for(method)
+    @body = body_for(method)
+    @body
   end
 
   def client_properties
