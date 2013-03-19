@@ -52,6 +52,10 @@ module SoapObject
     @client.operations
   end
 
+  def body_xml
+    Nokogiri::XML(body)
+  end
+
   private
 
   def method_missing(*args)

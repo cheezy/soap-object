@@ -1,3 +1,8 @@
+=== Version 0.4 / 2013-3-18
+* Enhancements
+  * Added body accessor to SoapObject to return raw body
+  * Added body_xml method to SoapObject to return Nokogiri::XML::Document containing body
+
 === Version 0.3 / 2013-3-17
 * Enhancements
   * Added SoapObject::Factory to assist in creating new service objects

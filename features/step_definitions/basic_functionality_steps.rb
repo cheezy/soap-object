@@ -46,3 +46,7 @@ end
 Then /^the results body should contain "(.*?)"$/ do |body|
   @so.body.should include body
 end
+
+Then /^the results body xml should be a Nokogiri XML object$/ do
+  @so.body_xml.should be_instance_of Nokogiri::XML::Document
+end
