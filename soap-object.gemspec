@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'savon', '>= 2.1.0'
+  gem.add_dependency 'savon', '>= 2.2.0'
 
   gem.add_development_dependency 'rspec', '>= 2.12.0'
   gem.add_development_dependency 'cucumber', '>= 1.2.0'
