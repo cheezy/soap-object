@@ -1,3 +1,12 @@
+=== Version 0.5 / 2013-6-1
+* Enhancements
+  * Removed the body accessor
+  * Removed the body_xml method
+  * Added to_xml method to return the response as a String containing the XML
+  * Added to_hash method to return the respons as a Hash
+  * Added doc method to return response as a Nokogiri::XML::Document document
+  * Updated method_missing so when services methods are called the raw XML is returned
+
 === Version 0.4 / 2013-3-18
 * Enhancements
   * Added body accessor to SoapObject to return raw body
