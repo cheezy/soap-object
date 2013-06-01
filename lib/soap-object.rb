@@ -1,4 +1,5 @@
 require 'savon'
+require 'cgi'
 require 'soap-object/version'
 require 'soap-object/class_methods'
 require 'soap-object/factory'
@@ -9,15 +10,21 @@ require 'soap-object/factory'
 # from the web service within the soap objects.
 #
 # @example
-# class AirportService
+# class ZipCodeService
 #   include SoapObject
 #
-#   wsdl 'http://www.webservicex.net/airport.asmx?WSDL'
+#   wsdl 'http://www.webservicex.net/uszip.asmx?WSDL'
 #
-#   def get_airport_name_for(airport_code)
-#     response = get_airport_information_by_airport_code airport_code: airport_code
-#     doc = Nokogiri::XML(response)
-#     doc.xpath('//Table/CityOrAirportName').first.content
+#   def get_zipcode_info(zip_code)
+#     get_info_by_zip 'USZip' => zip_code
+#   end
+#
+#   def state
+#     message[:state]
+#   end
+#
+#   message
+#     response.body[:get_info_by_zip_response][:get_info_by_zip_result][:new_data_set][:table]
 #   end
 # end
 #
@@ -26,7 +33,7 @@ require 'soap-object/factory'
 # view all of the options.
 #
 module SoapObject
-  attr_reader :wsdl, :response, :body
+  attr_reader :wsdl, :response
 
   def initialize
     @client = Savon.client(client_properties)
@@ -53,10 +60,24 @@ module SoapObject
   end
 
   #
-  # Return a Nokogiri::XML::Document containing the raw body.
+  # Return the xml response
   #
-  def body_xml
-    Nokogiri::XML(body)
+  def to_xml
+    response.to_xml
+  end
+
+  #
+  # Return the response as a Hash
+  #
+  def to_hash
+    response.hash
+  end
+
+  #
+  # Return the response as a Nokogiri document
+  #
+  def doc
+    response.doc
   end
 
   private
@@ -64,8 +85,7 @@ module SoapObject
   def method_missing(*args)
     method = args.shift
     @response = @client.call(method, {message: args.shift})
-    @body = body_for(method)
-    @body
+    response.to_xml
   end
 
   def client_properties
@@ -84,7 +104,4 @@ module SoapObject
     properties
   end
 
-  def body_for(method)
-    @response.body["#{method.to_s}_response".to_sym]["#{method.to_s}_result".to_sym]
-  end
 end
