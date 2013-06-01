@@ -23,7 +23,7 @@ class TestServiceWithWsdl
   private
 
   def message
-    response.body[:get_info_by_zip_response][:get_info_by_zip_result][:new_data_set][:table]
+    body[:get_info_by_zip_response][:get_info_by_zip_result][:new_data_set][:table]
   end
 end
 

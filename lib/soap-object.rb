@@ -74,6 +74,13 @@ module SoapObject
   end
 
   #
+  # Return the body of the message as a Hash
+  #
+  def body
+    response.body
+  end
+
+  #
   # Return the response as a Nokogiri document
   #
   def doc
