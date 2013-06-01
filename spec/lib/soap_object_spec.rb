@@ -98,9 +98,10 @@ describe SoapObject do
     end
 
     it "should make a valid request" do
-      client.should_receive(:call).with(:fake_call, message: {data_key: 'some_value'})
+      response = double('response')
+      response.should_receive(:to_xml)
+      client.should_receive(:call).with(:fake_call, message: {data_key: 'some_value'}).and_return(response)
       @so = TestServiceWithWsdl.new
-      @so.stub(:body_for)
       @so.fake_call data_key: 'some_value'
     end
   end
