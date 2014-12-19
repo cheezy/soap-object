@@ -6,8 +6,8 @@ require 'soap-object/version'
 Gem::Specification.new do |gem|
   gem.name          = "soap-object"
   gem.version       = Soap::Object::VERSION
-  gem.authors       = ["Jeffrey S. Morgan"]
-  gem.email         = ["jeff.morgan@leandog.com"]
+  gem.authors       = ["Jeffrey S. Morgan", "Doug Morgan"]
+  gem.email         = ["jeff.morgan@leandog.com", "douglas.morgan3405@gmail.com"]
   gem.description   = %q{Wrapper around SOAP service calls to make it easy to test}
   gem.summary       = %q{Wrapper around SOAP service calls to make it easy to test}
   gem.homepage      = "http://github.com/cheezy/soap-object"
