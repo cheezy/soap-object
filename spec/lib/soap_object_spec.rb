@@ -14,10 +14,13 @@ class TestServiceWithWsdl
   log_level :error
 end
 
+class TestServiceWithOutLogging
+  include SoapObject
+end
+
 class TestWorld
   include SoapObject::Factory
 end
-
 
 describe SoapObject do
   let(:client) { double('client') }
@@ -64,9 +67,18 @@ describe SoapObject do
       expect(subject.send(:client_properties)[:digest_auth]).to eq(['digest', 'auth'])
     end
 
+    it "should disable logging when no logging level set" do
+      expect(TestServiceWithOutLogging.new.send(:client_properties)[:log]).to eq(false)
+    end
+
+    it "should enable logging when logging level set" do
+      expect(subject.send(:client_properties)[:log]).to eq(true)
+    end
+
     it "should allow one to set the log level" do
       expect(subject.send(:client_properties)[:log_level]).to eq(:error)
     end
+
   end
 
   context "when using the factory to create to service" do

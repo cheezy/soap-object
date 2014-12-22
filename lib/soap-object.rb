@@ -102,7 +102,7 @@ module SoapObject
   end
 
   def client_properties
-    properties = {}
+    properties = { log: false }
     [:with_wsdl,
      :with_proxy,
      :with_open_timeout,
