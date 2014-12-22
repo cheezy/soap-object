@@ -1,3 +1,8 @@
+=== Version 0.6 / 2014-12-22
+* Enhancements
+  * Added ability to call operation with hand rolled xml
+  * Disabled logging by default, setting log_level enables it
+
 === Version 0.5.1 / 2013-6-1
 * Enhancements
   * Added body method to return the body of the result as a Hash
