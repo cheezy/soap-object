@@ -90,8 +90,14 @@ module SoapObject
   private
 
   def method_missing(*args)
-    method = args.shift
-    @response = @client.call(method, {message: args.shift})
+    operation =args.shift
+    message = args.shift
+    type = message.is_a?(String) ? :xml : :message
+    call(operation, {type => message})
+  end
+
+  def call(operation, data)
+    @response = @client.call(operation, data)
     response.to_xml
   end
 

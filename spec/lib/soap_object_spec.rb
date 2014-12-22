@@ -23,7 +23,6 @@ describe SoapObject do
   let(:client) { double('client') }
   let(:subject) { TestServiceWithWsdl.new }
 
-
   context "when creating new instances" do
     before do
       allow(Savon).to receive(:client).and_return(client)
@@ -93,16 +92,22 @@ describe SoapObject do
   end
 
   context "when calling methods on the service" do
+    let(:response) { double('response') }
+
     before do
       expect(Savon).to receive(:client).and_return(client)
+      expect(response).to receive(:to_xml)
     end
 
     it "should make a valid request" do
-      response = double('response')
-      expect(response).to receive(:to_xml)
       expect(client).to receive(:call).with(:fake_call, message: {data_key: 'some_value'}).and_return(response)
-      @so = TestServiceWithWsdl.new
-      @so.fake_call data_key: 'some_value'
+      subject.fake_call data_key: 'some_value'
+    end
+
+    it "should make a valid request with custom xml" do
+      expected_xml = "<xml><envelope/><data></data></envelope></xml>"
+      expect(client).to receive(:call).with(anything, xml: expected_xml).and_return(response)
+      subject.fake_call expected_xml
     end
   end
 end
