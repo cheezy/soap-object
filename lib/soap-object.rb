@@ -67,6 +67,13 @@ module SoapObject
   end
 
   #
+  # Return value at xpath
+  #
+  def xpath(path)
+    doc.xpath(path)
+  end
+
+  #
   # Return the response as a Hash
   #
   def to_hash
