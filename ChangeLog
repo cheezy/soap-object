@@ -1,3 +1,7 @@
+=== Version 0.6.2 / 2015-3-12
+* Enhancements
+  * Calling xpath on Savon response, to take advantage of namespace collecting from response.
+
 === Version 0.6.1 / 2015-3-12
 * Enhancements
   * Added xpath method to return to allow user to access path directly

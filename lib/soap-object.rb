@@ -70,7 +70,7 @@ module SoapObject
   # Return value at xpath
   #
   def xpath(path)
-    doc.xpath(path)
+    response.xpath(path)
   end
 
   #
