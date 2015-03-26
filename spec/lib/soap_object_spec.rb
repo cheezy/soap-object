@@ -12,10 +12,16 @@ class TestServiceWithWsdl
   basic_auth 'steve', 'secret'
   digest_auth 'digest', 'auth'
   log_level :error
+  ssl_verification false
 end
 
-class TestServiceWithOutLogging
+class TestSoapObjectWithoutClientProperties
   include SoapObject
+end
+
+class TestSoapObjectWithExplicitSslVerification
+  include SoapObject
+  ssl_verification true
 end
 
 class TestWorld
@@ -68,7 +74,7 @@ describe SoapObject do
     end
 
     it "should disable logging when no logging level set" do
-      expect(TestServiceWithOutLogging.new.send(:client_properties)[:log]).to eq(false)
+      expect(TestSoapObjectWithoutClientProperties.new.send(:client_properties)[:log]).to eq(false)
     end
 
     it "should enable logging when logging level set" do
@@ -77,6 +83,18 @@ describe SoapObject do
 
     it "should allow one to set the log level" do
       expect(subject.send(:client_properties)[:log_level]).to eq(:error)
+    end
+
+    it "should enable SSL verification by default" do
+      expect(TestSoapObjectWithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to be_nil 
+    end
+
+    it "should allow one to disable SSL verification" do
+      expect(subject.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
+    end
+
+    it "should allow one to explicitly enable SSL verification" do
+      expect(TestSoapObjectWithExplicitSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to be_nil 
     end
 
   end

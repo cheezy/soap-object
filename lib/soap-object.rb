@@ -118,7 +118,8 @@ module SoapObject
      :with_encoding,
      :with_basic_auth,
      :with_digest_auth,
-     :with_log_level].each do |sym|
+     :with_log_level,
+     :with_ssl_verification].each do |sym|
       properties = properties.merge(self.send sym) if self.respond_to? sym
     end
     properties

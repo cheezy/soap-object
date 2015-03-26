@@ -6,7 +6,7 @@ module SoapObject
     # Sets the url for the wsdl.  It can be a path to a local file or
     # a url to a remote server containing the file.
     #
-    # @param [Stroing] either the local path to or the remote url to
+    # @param [String] either the local path to or the remote url to
     # the wsdl to use for all requests.
     #
     def wsdl(url)
@@ -107,5 +107,19 @@ module SoapObject
         {log: true, log_level: level}
       end
     end
+
+    #
+    # Enable/Disable SSL verification when calling services over HTTPS (Default is true)
+    #
+    # @param [Boolean] valid values are true, false
+    #
+    def ssl_verification(enable)
+      unless enable
+        define_method(:with_ssl_verification) do
+          {ssl_verify_mode: :none}
+        end
+      end
+    end
+
   end
 end
