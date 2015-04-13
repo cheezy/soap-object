@@ -104,7 +104,7 @@ module SoapObject
     #
     def log_level(level)
       define_method(:with_log_level) do
-        {log: true, log_level: level}
+        {log: true, log_level: level, pretty_print_xml: true}
       end
     end
 

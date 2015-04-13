@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class TestServiceWithWsdl
+class TestSoapObjectWithProperties
   include SoapObject
 
   wsdl 'http://blah.com'
@@ -12,31 +12,21 @@ class TestServiceWithWsdl
   basic_auth 'steve', 'secret'
   digest_auth 'digest', 'auth'
   log_level :error
-  ssl_verification false
 end
 
-class TestSoapObjectWithoutClientProperties
+class WithoutClientProperties
   include SoapObject
-end
-
-class TestSoapObjectWithExplicitSslVerification
-  include SoapObject
-  ssl_verification true
-end
-
-class TestWorld
-  include SoapObject::Factory
 end
 
 describe SoapObject do
   let(:client) { double('client') }
-  let(:subject) { TestServiceWithWsdl.new }
+  let(:subject) { TestSoapObjectWithProperties.new }
 
   context "when creating new instances" do
     before do
       allow(Savon).to receive(:client).and_return(client)
     end
-  
+
     it "should initialize the client using the wsdl" do
       expect(subject.send(:client_properties)[:wsdl]).to eq('http://blah.com')
     end
@@ -74,7 +64,7 @@ describe SoapObject do
     end
 
     it "should disable logging when no logging level set" do
-      expect(TestSoapObjectWithoutClientProperties.new.send(:client_properties)[:log]).to eq(false)
+      expect(WithoutClientProperties.new.send(:client_properties)[:log]).to eq(false)
     end
 
     it "should enable logging when logging level set" do
@@ -85,41 +75,41 @@ describe SoapObject do
       expect(subject.send(:client_properties)[:log_level]).to eq(:error)
     end
 
-    it "should enable SSL verification by default" do
-      expect(TestSoapObjectWithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to be_nil 
+    it "should use pretty format for xml when logging" do
+      expect(subject.send(:client_properties)[:pretty_print_xml]).to eq(true)
     end
 
-    it "should allow one to disable SSL verification" do
-      expect(subject.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
-    end
+    # it "should disable SSL verification by default" do
+    #   expect(WithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
+    # end
+    #
+    # it "should set SSL version to 3 by default" do
+    #   expect(WithoutClientProperties.new.send(:client_properties)[:ssl_version]).to eq(:SSLv3)
+    # end
 
-    it "should allow one to explicitly enable SSL verification" do
-      expect(TestSoapObjectWithExplicitSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to be_nil 
-    end
+    context "with ssl_verification" do
 
-  end
+      class WithSslVerification
+        include SoapObject
+        ssl_verification true
+      end
 
-  context "when using the factory to create to service" do
-    let(:world) { TestWorld.new }
+      class WithoutSslVerification
+        include SoapObject
+        ssl_verification false
+      end
 
-    it "should create a valid service object" do
-      service = world.using(TestServiceWithWsdl)
-      expect(service).to be_instance_of TestServiceWithWsdl
-    end
+      it "should allow one to explicity disable SSL verification" do
+        expect(WithoutSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
+      end
 
-    it "should create a valid service and invoke a block" do
-      world.using(TestServiceWithWsdl) do |service|
-        expect(service).to be_instance_of TestServiceWithWsdl
+      it "should allow one to enable SSL verification" do
+        expect(WithSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to be_nil
       end
     end
 
-    it "should create the service the first time we use it" do
-      obj = TestServiceWithWsdl.new
-      expect(TestServiceWithWsdl).to receive(:new).once.and_return(obj)
-      world.using(TestServiceWithWsdl)
-      world.using(TestServiceWithWsdl)
-    end
   end
+
 
   context "when calling methods on the service" do
     let(:response) { double('response') }
