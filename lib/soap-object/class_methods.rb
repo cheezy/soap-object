@@ -114,9 +114,9 @@ module SoapObject
     # @param [Boolean] valid values are true, false
     #
     def ssl_verification(enable)
-      unless enable
+      if enable
         define_method(:with_ssl_verification) do
-          {ssl_verify_mode: :none}
+          {ssl_verify_mode: nil}
         end
       end
     end

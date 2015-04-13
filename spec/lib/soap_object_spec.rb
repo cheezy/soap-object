@@ -79,13 +79,9 @@ describe SoapObject do
       expect(subject.send(:client_properties)[:pretty_print_xml]).to eq(true)
     end
 
-    it "should enable SSL verification by default" do
-      expect(WithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to be_nil
+    it "should disable SSL verification by default" do
+      expect(WithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
     end
-
-    # it "should disable SSL verification by default" do
-    #   expect(WithoutClientProperties.new.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
-    # end
     #
     # it "should set SSL version to 3 by default" do
     #   expect(WithoutClientProperties.new.send(:client_properties)[:ssl_version]).to eq(:SSLv3)
@@ -103,7 +99,7 @@ describe SoapObject do
         ssl_verification false
       end
 
-      it "should allow one to explicity disable SSL verification" do
+      it "should allow one to explicitly disable SSL verification" do
         expect(WithoutSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to eq(:none)
       end
 
