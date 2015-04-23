@@ -121,5 +121,11 @@ module SoapObject
       end
     end
 
+    def ssl_version(version)
+      define_method(:with_ssl_version) do
+        {ssl_version: version}
+      end
+    end
+
   end
 end
