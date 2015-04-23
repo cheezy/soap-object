@@ -95,6 +95,9 @@ module SoapObject
   end
 
   private
+  DEFAULT_PROPERTIES = {log: false,
+                         ssl_verify_mode: :none,
+                         ssl_version: :SSLv3}
 
   def method_missing(*args)
     operation =args.shift
@@ -109,10 +112,8 @@ module SoapObject
   end
 
   def client_properties
-    properties = {log: false,
-                  ssl_verify_mode: :none,
-                  ssl_version: :SSLv3}
-    [:with_wsdl,
+    properties = DEFAULT_PROPERTIES
+     [:with_wsdl,
      :with_proxy,
      :with_open_timeout,
      :with_read_timeout,
@@ -123,9 +124,9 @@ module SoapObject
      :with_log_level,
      :with_ssl_verification,
      :with_ssl_version].each do |sym|
-      properties = properties.merge(self.send sym) if self.respond_to? sym
+       properties = properties.merge(self.send sym) if self.respond_to? sym
     end
-    properties
+     properties
   end
 
 end
