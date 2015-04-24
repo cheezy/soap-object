@@ -104,7 +104,7 @@ module SoapObject
     #
     def log_level(level)
       define_method(:with_log_level) do
-        {log: true, log_level: level}
+        {log: true, log_level: level, pretty_print_xml: true}
       end
     end
 
@@ -114,10 +114,16 @@ module SoapObject
     # @param [Boolean] valid values are true, false
     #
     def ssl_verification(enable)
-      unless enable
+      if enable
         define_method(:with_ssl_verification) do
-          {ssl_verify_mode: :none}
+          {ssl_verify_mode: nil}
         end
+      end
+    end
+
+    def ssl_version(version)
+      define_method(:with_ssl_version) do
+        {ssl_version: version}
       end
     end
 
