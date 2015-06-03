@@ -122,6 +122,7 @@ module SoapObject
      :with_basic_auth,
      :with_digest_auth,
      :with_log_level,
+     :with_soap_version,
      :with_ssl_verification,
      :with_ssl_version].each do |sym|
        properties = properties.merge(self.send sym) if self.respond_to? sym

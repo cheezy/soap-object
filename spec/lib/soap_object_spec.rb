@@ -12,6 +12,7 @@ class TestSoapObjectWithProperties
   basic_auth 'steve', 'secret'
   digest_auth 'digest', 'auth'
   log_level :error
+  soap_version 2
 end
 
 class WithoutClientProperties
@@ -77,6 +78,10 @@ describe SoapObject do
 
     it 'should use pretty format for xml when logging' do
       expect(subject.send(:client_properties)[:pretty_print_xml]).to eq(true)
+    end
+
+    it 'should allow one to set the soap version' do
+      expect(subject.send(:client_properties)[:soap_version]).to eq(2)
     end
 
     it 'should disable SSL verification by default' do

@@ -108,6 +108,13 @@ module SoapObject
       end
     end
 
+    def soap_version(version)
+      define_method(:with_soap_version) do
+        {soap_version: version}
+      end
+    end
+
+
     #
     # Enable/Disable SSL verification when calling services over HTTPS (Default is true)
     #
