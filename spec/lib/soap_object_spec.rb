@@ -109,7 +109,7 @@ describe SoapObject do
       end
 
       it 'should allow one to enable SSL verification' do
-        expect(WithSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to be_nil
+        expect(WithSslVerification.new.send(:client_properties)[:ssl_verify_mode]).to eq(:peer)
       end
     end
 
