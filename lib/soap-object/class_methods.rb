@@ -123,7 +123,7 @@ module SoapObject
     def ssl_verification(enable)
       if enable
         define_method(:with_ssl_verification) do
-          {ssl_verify_mode: nil}
+          {ssl_verify_mode: :peer}
         end
       end
     end
