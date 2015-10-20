@@ -2,6 +2,7 @@ require 'savon'
 require 'cgi'
 require 'soap-object/version'
 require 'soap-object/class_methods'
+require 'soap-object/ssl_options'
 require 'soap-object/factory'
 
 #
@@ -123,8 +124,7 @@ module SoapObject
      :with_digest_auth,
      :with_log_level,
      :with_soap_version,
-     :with_ssl_verification,
-     :with_ssl_version].each do |sym|
+     :with_ssl_options].each do |sym|
        properties = properties.merge(self.send sym) if self.respond_to? sym
     end
      properties

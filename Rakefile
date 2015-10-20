@@ -18,4 +18,3 @@ desc 'Run all specs and features'
 task :test => %w[spec features]
 
 task :default => :test
-
