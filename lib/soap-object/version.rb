@@ -1,5 +1,3 @@
-module Soap
-  module Object
-    VERSION = "0.6.6"
-  end
+module SoapObject
+    VERSION = "0.6.7"
 end
