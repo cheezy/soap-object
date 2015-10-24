@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-class WithoutClientProperties
-  include SoapObject
-end
-
 describe SoapObject do
 
   context 'when calling methods on the service' do
