@@ -11,7 +11,7 @@ end
 task :spec
 
 Cucumber::Rake::Task.new(:features, "Run all features") do |t|
-  t.profile = 'focus'
+  t.profile = 'default'
 end
 
 desc 'Run all specs and features'
