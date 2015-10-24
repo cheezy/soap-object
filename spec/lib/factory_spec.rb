@@ -2,7 +2,7 @@ require 'spec_helper'
 
 class TestSoapObject
   include SoapObject
-  
+
   wsdl 'http://blah.com'
 end
 
@@ -10,7 +10,7 @@ class TestWorld
   include SoapObject::Factory
 end
 
-describe 'SoapObject factory' do
+describe SoapObject::Factory do
   context "when using the factory to create to service" do
     let(:world) { TestWorld.new }
 

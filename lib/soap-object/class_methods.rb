@@ -10,7 +10,7 @@ module SoapObject
     # the wsdl to use for all requests.
     #
     def wsdl(url)
-      define_method(:with_wsdl) do 
+      define_method(:with_wsdl) do
         @wsdl ||= url
         {wsdl: @wsdl}
       end
@@ -108,29 +108,22 @@ module SoapObject
       end
     end
 
+    #
+    # Set the ssl options
+    #
+    # @param [block] Available options in SslOptions class
+    #
+    def ssl_options(&block)
+      ssl = SslOptions.new(&block)
+
+      define_method(:with_ssl_options) do
+        ssl.options
+      end
+    end
+
     def soap_version(version)
       define_method(:with_soap_version) do
         {soap_version: version}
-      end
-    end
-
-
-    #
-    # Enable/Disable SSL verification when calling services over HTTPS (Default is true)
-    #
-    # @param [Boolean] valid values are true, false
-    #
-    def ssl_verification(enable)
-      if enable
-        define_method(:with_ssl_verification) do
-          {ssl_verify_mode: :peer}
-        end
-      end
-    end
-
-    def ssl_version(version)
-      define_method(:with_ssl_version) do
-        {ssl_version: version}
       end
     end
 
