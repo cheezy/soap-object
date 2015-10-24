@@ -9,10 +9,11 @@ describe SoapObject do
   context 'when calling methods on the service' do
     let(:response) { double('response') }
     let(:client) { double('client') }
-    let(:subject) { WithoutClientProperties.new }
+    let(:platform) {double('savon')}
+    let(:subject) { WithoutClientProperties.new(platform) }
 
     before do
-      expect(Savon).to receive(:client).and_return(client)
+      expect(platform).to receive(:client).and_return(client)
       expect(response).to receive(:to_xml)
     end
 

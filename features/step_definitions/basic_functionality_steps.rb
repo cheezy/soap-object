@@ -54,7 +54,7 @@ Given /^I have a wsdl file residing locally$/ do
 end
 
 When /^I create an instance of the SoapObject class$/ do
-  @so = @cls.new
+  @so = @cls.new(Savon)
 end
 
 Then /^I should have a connection$/ do

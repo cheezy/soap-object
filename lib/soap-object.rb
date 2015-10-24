@@ -36,8 +36,8 @@ require 'soap-object/factory'
 module SoapObject
   attr_reader :wsdl, :response
 
-  def initialize
-    @client = Savon.client(client_properties)
+  def initialize(platform)
+    @client = platform.client(client_properties)
   end
 
   def self.included(cls)
