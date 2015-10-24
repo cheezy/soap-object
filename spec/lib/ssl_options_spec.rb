@@ -1,15 +1,5 @@
 require 'spec_helper'
 
-class WithSslOptions
-  include SoapObject
-
-  ssl_options do |opts|
-    opts.verify_mode = :peer
-    opts.version = :SSLv2
-  end
-
-end
-
 describe SoapObject do
   let(:client) { double('client') }
   let(:platform) {double('savon')}

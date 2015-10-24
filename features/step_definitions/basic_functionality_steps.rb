@@ -1,56 +1,13 @@
-class TestServiceWithWsdl
-  include SoapObject
-
-  wsdl 'http://www.webservicex.net/uszip.asmx?WSDL'
-  log_level :error
-
-  def get_zip_code_info(zip_code)
-    get_info_by_zip 'USZip' => zip_code
-  end
-
-  def state
-    message[:state]
-  end
-
-  def city
-    message[:city]
-  end
-
-  def area_code
-    message[:area_code]
-  end
-
-  private
-
-  def message
-    body[:get_info_by_zip_response][:get_info_by_zip_result][:new_data_set][:table]
-  end
-end
-
-class TestServiceWithLocalWsdl
-  include SoapObject
-
-  wsdl "#{File.dirname(__FILE__)}/../wsdl/uszip.asmx.wsdl"
-end
-
-class TestDefineService
-  include SoapObject
-
-  wsdl "http://services.aonaware.com/DictService/DictService.asmx?WSDL"
-  log_level :error
-
-  def definition_for(word)
-    define word: word
-  end
-end
-
-
 Given /^I have the url for a remote wsdl$/ do
-  @cls = TestServiceWithWsdl
+  @cls = RemoteWsdlService
 end
 
 Given /^I have a wsdl file residing locally$/ do
-  @cls = TestServiceWithLocalWsdl
+  @cls = LocalWsdlService
+end
+
+Given /^I am calling the Define service$/ do
+  @cls = DefineService
 end
 
 When /^I create an instance of the SoapObject class$/ do
@@ -78,10 +35,6 @@ end
 
 Then /^the results doc should be a Nokogiri XML object$/ do
   expect(@so.doc).to be_instance_of Nokogiri::XML::Document
-end
-
-Given /^I am calling the Define service$/ do
-  @cls = TestDefineService
 end
 
 Then /^I should be able to get the correct definition results$/ do

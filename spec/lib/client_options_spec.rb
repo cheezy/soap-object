@@ -1,24 +1,5 @@
 require 'spec_helper'
 
-class TestSoapObjectWithProperties
-  include SoapObject
-
-  wsdl 'http://blah.com'
-  proxy 'http://proxy.com:8080'
-  open_timeout 10
-  read_timeout 20
-  soap_header 'Token' => 'secret'
-  encoding 'UTF-16'
-  basic_auth 'steve', 'secret'
-  digest_auth 'digest', 'auth'
-  log_level :error
-  soap_version 2
-end
-
-class WithoutClientProperties
-  include SoapObject
-end
-
 describe SoapObject do
   let(:client) { double('client') }
   let(:platform) {double('savon')}
