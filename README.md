@@ -4,7 +4,7 @@ Module to make it simpler to tests SOAP web services.  The goal is
 to abstract all information about how your call and parse results
 from the web service within the soap objects.
 
-## Defining
+## Defining a soap-object
 
 ````ruby
 class AirportService
@@ -16,6 +16,35 @@ class AirportService
     xpath('//Table/CityOrAirportName').first.content
   end
 
+end
+````
+
+#### Client Properties
+
+By default, the following properties are set on the Savon::Client:
+
+````ruby
+log: false
+ssl_verify_mode: :none
+ssl_version: :SSLv3
+````                 
+
+The following methods are available to set client properties:
+
+````ruby
+proxy 'http://proxy.com:8080'
+open_timeout 10
+read_timeout 20
+soap_header 'Token' => 'secret'
+encoding 'UTF-16'
+basic_auth 'steve', 'secret'
+digest_auth 'digest', 'auth'
+log_level :error
+soap_version 2
+
+ssl_options do |opts|
+  opts.verify_mode = :peer
+  opts.version = :SSLv2
 end
 ````
 
