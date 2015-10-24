@@ -1,4 +1,4 @@
-class RemoteWsdlService
+class ZipCodeService
   include SoapObject
 
   wsdl 'http://www.webservicex.net/uszip.asmx?WSDL'
