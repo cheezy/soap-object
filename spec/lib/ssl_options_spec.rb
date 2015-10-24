@@ -12,20 +12,24 @@ end
 
 describe SoapObject do
   let(:client) { double('client') }
+  let(:platform) {double('savon')}
 
   before do
-    allow(Savon).to receive(:client).and_return(client)
+    allow(platform).to receive(:client).and_return(client)
   end
 
   context 'when setting client ssl options' do
-    let(:subject) { WithSslOptions.new }
 
     it 'should allow one to enable SSL verification' do
-      expect(subject.send(:client_properties)[:ssl_verify_mode]).to eq(:peer)
+      expect(platform).to receive(:client).with(hash_including(ssl_verify_mode: :peer))
+
+      WithSslOptions.new(platform)
     end
 
     it 'should allow one to set SSL version' do
-      expect(subject.send(:client_properties)[:ssl_version]).to eq(:SSLv2)
+      expect(platform).to receive(:client).with(hash_including(ssl_version: :SSLv2))
+
+      WithSslOptions.new(platform)
     end
   end
 

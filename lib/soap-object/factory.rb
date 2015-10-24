@@ -11,7 +11,7 @@ module SoapObject
     private
 
     def find_service(cls)
-      services[cls] = cls.new unless services[cls]
+      services[cls] = cls.new(Savon) unless services[cls]
       services[cls]
     end
 

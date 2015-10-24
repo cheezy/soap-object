@@ -26,8 +26,8 @@ describe SoapObject::Factory do
     end
 
     it "should create the service the first time we use it" do
-      obj = TestSoapObject.new
-      expect(TestSoapObject).to receive(:new).once.and_return(obj)
+      obj = TestSoapObject
+      expect(TestSoapObject).to receive(:new).with(Savon).once.and_return(obj)
       world.using(TestSoapObject)
       world.using(TestSoapObject)
     end
