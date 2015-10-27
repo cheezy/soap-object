@@ -1,4 +1,4 @@
-# Soap::Object
+# SoapObject
 
 Module to make it simpler to tests SOAP web services.  The goal is
 to abstract all information about how your call and parse results
