@@ -1,9 +1,9 @@
 require 'savon'
-require 'cgi'
 require 'soap-object/version'
 require 'soap-object/class_methods'
 require 'soap-object/ssl_options'
 require 'soap-object/factory'
+require 'soap-object/response'
 
 #
 # module to make it simpler to tests SOAP web services.  The goal is
@@ -34,6 +34,8 @@ require 'soap-object/factory'
 # view all of the options.
 #
 module SoapObject
+  include Response
+
   attr_reader :wsdl, :response
 
   def initialize(platform)
@@ -58,41 +60,6 @@ module SoapObject
   #
   def operations
     @client.operations
-  end
-
-  #
-  # Return the xml response
-  #
-  def to_xml
-    response.to_xml
-  end
-
-  #
-  # Return value at xpath
-  #
-  def xpath(path)
-    response.xpath(path)
-  end
-
-  #
-  # Return the response as a Hash
-  #
-  def to_hash
-    response.hash
-  end
-
-  #
-  # Return the body of the message as a Hash
-  #
-  def body
-    response.body
-  end
-
-  #
-  # Return the response as a Nokogiri document
-  #
-  def doc
-    response.doc
   end
 
   private
