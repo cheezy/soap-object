@@ -21,4 +21,4 @@ Feature: This describes the core functionality of the SoapObject object
     Examples:
       | soap-object    | operation         | args   |
       | DefineService  | definition_for    | Cheese |
-      | ZipCodeService | get_zip_code_info | 90210  |
+      | ZipCodeService | get_zip_code_info | 44114  |
