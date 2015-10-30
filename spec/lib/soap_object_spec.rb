@@ -20,7 +20,7 @@ describe SoapObject do
 
     it 'should make a valid request with custom xml' do
       expected_xml = '<xml><envelope/><data></data></envelope></xml>'
-      expect(client).to receive(:call).with(anything, xml: expected_xml).and_return(response)
+      expect(client).to receive(:call).with(:fake_call, xml: expected_xml).and_return(response)
       subject.fake_call expected_xml
     end
   end
