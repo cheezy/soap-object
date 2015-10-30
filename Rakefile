@@ -14,6 +14,10 @@ Cucumber::Rake::Task.new(:features, "Run all features") do |t|
   t.profile = 'default'
 end
 
+Cucumber::Rake::Task.new(:wip, "Wip features") do |t|
+  t.profile = 'wip'
+end
+
 desc 'Run all specs and features'
 task :test => %w[spec features]
 

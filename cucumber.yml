@@ -2,4 +2,5 @@
 std_opts = "--no-source --color --format pretty"
 %>
 
-default: <%= std_opts %> 
+default: <%= std_opts %>
+wip: <%= std_opts %> --tags @wip
