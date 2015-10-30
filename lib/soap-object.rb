@@ -67,16 +67,15 @@ module SoapObject
                          ssl_verify_mode: :none,
                          ssl_version: :SSLv3}
 
-  def method_missing(*args)
-    operation =args.shift
-    message = args.shift
-    type = message.is_a?(String) ? :xml : :message
-    call(operation, {type => message})
+  def method_missing(operation, body)
+    request = build_request(body)
+    @response = @client.call(operation, request)
+    response.to_xml
   end
 
-  def call(operation, data)
-    @response = @client.call(operation, data)
-    response.to_xml
+  def build_request(body)
+    type = body.is_a?(Hash) ? :message : :xml
+    {type => body}
   end
 
   def client_properties
