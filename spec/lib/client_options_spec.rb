@@ -22,6 +22,12 @@ describe SoapObject do
       TestSoapObjectWithProperties.new(platform)
     end
 
+    it 'should allow one to override the endpoint' do
+      expect(platform).to receive(:client).with(hash_including(endpoint: 'https://blah.com'))
+
+      TestSoapObjectWithProperties.new(platform)
+    end
+
     it 'should allow one to setup a proxy' do
       expect(platform).to receive(:client).with(hash_including(proxy: 'http://proxy.com:8080'))
 

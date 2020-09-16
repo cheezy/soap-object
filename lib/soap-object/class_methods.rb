@@ -17,6 +17,18 @@ module SoapObject
     end
 
     #
+    # Override the endpoint binding in the WSDL 
+    #
+    # @param [String] The target namespace is used to namespace the SOAP message.
+    #
+    def endpoint(url)
+      define_method(:with_endpoint) do
+        {endpoint: url}
+      end
+    end
+
+
+    #
     # Set a proxy server to be used.  This will be used for retrieving
     # the wsdl as well as making the remote requests.
     #
