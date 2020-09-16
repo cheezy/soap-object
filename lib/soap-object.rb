@@ -81,6 +81,7 @@ module SoapObject
   def client_properties
     properties = DEFAULT_PROPERTIES
      [:with_wsdl,
+     :with_endpoint,
      :with_proxy,
      :with_open_timeout,
      :with_read_timeout,

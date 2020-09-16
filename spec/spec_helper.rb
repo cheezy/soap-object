@@ -12,6 +12,7 @@ class TestSoapObjectWithProperties
   include SoapObject
 
   wsdl 'http://blah.com'
+  endpoint 'https://blah.com'
   proxy 'http://proxy.com:8080'
   open_timeout 10
   read_timeout 20
